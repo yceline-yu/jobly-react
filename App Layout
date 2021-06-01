@@ -1,0 +1,36 @@
+App -> infoLoaded, state: currentUser, token
+
+Homepage -> currentUser (update fn from App)
+Navigation -> currentUser (update fn from App)(useEffect)
+
+Routes -> login (fn?), register
+PrivateRoute ->  currentUser (update fn from App)
+
+CompanyList -> useEffect, getCompaniesOnMount
+CompanyCard -> name, desc, logo
+CompanyDetail -> API call get by handle?
+
+JobList -> useEffect, getAllJobsOnMount (API call)
+JobCardList -> jobs: array of jobs {title, id, equity, salary}, getAllJobsOnMount (effect)
+JobCard -> button, updateAppliedStatus, useEffect
+
+SearchForm -> API calls (to job or company)
+ProfileForm -> (update fn from App)
+LoginForm -> useEffect with item, API call to (users/username) (get) (updates Navigation)
+SignupForm -> (updates Navigation) (goes to /companies)
+
+function useLocalStorage -> item: token
+
+App -> { Navigation, Routes }
+
+Routes -> { Homepage, LoginForm, SignupForm, PrivateRoute }
+
+PrivateRoute -> { ProfileForm, JobList, CompanyList }
+
+CompanyList -> { SearchForm, CompanyCard }
+
+CompanyCard -> { Company Detail }
+
+CompanyDetail -> { JobCardList -> JobCard }
+
+JobList -> { SearchForm, JobCardList -> JobCard }
