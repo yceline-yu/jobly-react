@@ -7,17 +7,51 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import ProfileForm from "./ProfileForm";
 
-function Routes({login, signup, currentUser}){
 
+/** Routes
+ * 
+ * props: 
+ *  - login ()
+ *  - signup ()
+ *  - currentUser {username: ..., firstName: ...,}
+ * 
+ * state: none
+ * 
+ * App -> Routes -> {
+ *    Homepage, 
+ *    CompanyDetails, 
+ *    CompanyList,
+ *    JobList,
+ *    LoginForm,
+ *    SignupForm,
+ *    ProfileForm 
+ *  }
+ */
+function Routes({login, signup, currentUser}){
+ 
   return (
-    <Switch>
-      <Route exact path="/"><Homepage/></Route>
-      <Route exact path="/companies/:handle"><CompanyDetails/></Route>
-      <Route exact path="/companies"><CompanyList/></Route>
-      <Route exact path="/jobs"><JobList/></Route>
-      <Route exact path="/login"><LoginForm/></Route>
-      <Route exact path="/signup"><SignupForm/></Route>
-      <Route exact path="/profile"><ProfileForm/></Route>
+    <Switch> 
+      <Route exact path="/">
+        <Homepage/>
+      </Route>
+      <Route exact path="/companies/:handle">
+        <CompanyDetails/>
+        </Route>
+      <Route exact path="/companies">
+        <CompanyList/>
+        </Route>
+      <Route exact path="/jobs">
+        <JobList/>
+        </Route>
+      <Route exact path="/login">
+        <LoginForm/>
+        </Route>
+      <Route exact path="/signup">
+        <SignupForm/>
+        </Route>
+      <Route exact path="/profile">
+        <ProfileForm/>
+        </Route>
     </Switch>
   )
 }

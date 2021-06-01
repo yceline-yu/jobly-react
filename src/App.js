@@ -1,9 +1,11 @@
+import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
-import JoblyApi from "./api"
+import JoblyApi from "./api";
 import { useState } from 'react';
 import { BrowserRouter } from "react-router-dom";
-import Navigation from "./Navigation"
-import Routes from "./Routes"
+import Navigation from "./Navigation";
+import Routes from "./Routes";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
