@@ -1,0 +1,16 @@
+
+.CompanyCard:hover{
+    box-shadow: 2px 2px 4px rgb(143, 143, 143);
+    text-decoration: none;
+    color:black;
+}
+
+.CompanyCard {
+    display: block;
+    text-decoration: none;
+    margin: 2%;
+    color:black;
+    max-height: 250px;
+    margin-bottom: 1rem;
+    border: none;
+}
