@@ -5,20 +5,19 @@ import "./JobCard.css";
  * 
  * Props:
  * - job { equity, id, salary, title, companyName }
- * - type
+ * - showCompanyName: boolean
  * 
  * { JobCardList, CompanyDetail } -> JobCard
  * 
  */
-function JobCard({ job, type }) {
+function JobCard({ job, showCompanyName}) {
   const { equity, id, salary, title, companyName } = job;
 
-//consider boolean showCompanyName = true/false
   return (
     <Card className="JobCard">
       <Card.Body>
         <p><b>{title}</b></p>
-        {type === "companyJob" ? null : <p>{companyName}</p>}
+        {showCompanyName ? <p>{companyName}</p> : null  }
         {salary ? <p>Salary: {salary}</p> : null}
         <p>Equity: {equity}</p>
       </Card.Body>

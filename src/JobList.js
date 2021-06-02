@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import JoblyApi from "./api";
-import JobCardList from "./JobCardList"
+import JobCardList from "./JobCardList";
+import SearchForm from "./SearchForm";
 
 /** JobList
  * 
@@ -9,29 +10,40 @@ import JobCardList from "./JobCardList"
  * 
  * State:
  *  - jobs [{job}, {job},...]
+ *  - searchTerm: string submitted from search bar
  * 
  * { Private Routes, Routes } -> JobList -> JobCardList
  * 
  */
 function JobList() {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  //API method rework
   useEffect(function getJobsOnMount() {
     async function getJobs() {
-      let response = await JoblyApi.request("jobs");
+      let response = await JoblyApi.getJobs(searchTerm);
       setJobs(response.jobs);
     };
     getJobs();
-  }, []);
+  }, [searchTerm]);
 
-  console.log(jobs)
-//searchForm needed, get out quick if, searchFor methods, also [] === [] never true
-  return (jobs === []
-    ? <div><h2>Loading...</h2></div>
-    : <div><JobCardList jobs={jobs} /></div>
+  async function searchJobs(term) {
+    setSearchTerm(term);
+  }
+  
+  if (jobs === null) {
+    return (
+        <div><h2>Loading...</h2></div>
+    );
+  }
+  
+  return (
+  <div>
+    <SearchForm searchFor={searchJobs}/>
+    {searchTerm !== "" && <p>{jobs.length} result(s) for "{searchTerm}"</p>}
+    <JobCardList jobs={jobs} />
+    </div>
   );
-
-}
+} 
 
 export default JobList;

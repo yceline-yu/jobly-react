@@ -13,10 +13,9 @@ import JobCard from "./JobCard";
 function JobCardList({ jobs }) {
 
   let jobCards = jobs.map(job =>
-    <JobCard type="allJobs" key={job.id} job={job} />);
-//className
+    <JobCard showCompanyName={true} key={job.id} job={job} />);
   return (
-    <div>{jobCards}</div>
+    <div className="JobCardList">{jobCards}</div>
   );
 }
 

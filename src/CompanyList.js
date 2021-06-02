@@ -11,37 +11,40 @@ import "./CompanyList.css";
  * 
  * State:
  * - companies [{company}, {company},...]
+ * - searchTerm: string submitted from search bar
  * 
  * {PrivateRoutes, Routes} -> CompanyList -> { SearchForm, CompanyCard }
  * 
  */
 function CompanyList() {
-  const [companies, setCompanies] = useState([])
+  const [companies, setCompanies] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(function getCompaniesOnMount() {
     async function getCompaniesFromAPI() {
-      let response = await JoblyApi.request("companies");
+      let response = await JoblyApi.getCompanies(searchTerm);
       setCompanies(response.companies);
     };
     getCompaniesFromAPI();
-  }, []);
+  }, [searchTerm]);
 
-  console.log("companies", companies)
-
-  //get methods, use one useEffect to search and filter, [term] state dependency here, UI choices also {name/number}, check out "" if it works
-  //change the API methods so it is more abstracted i.e getAllCOmpanies, getAllJObs, filterCOmpany, filterJObs
   async function searchCompanies(term) {
-    let response = await JoblyApi.request("companies", { name: term });
-    setCompanies(response.companies);
+    setSearchTerm(term);
+  }
+
+  if (companies === null) {
+    return (
+      <div>Loading...</div>
+    );
   }
 
   let companyCards = companies.map(company =>
     <CompanyCard key={company.handle} company={company} />);
 
-//TODO: Loading Message!
   return (
     <div className="CompanyList">
       <SearchForm searchFor={searchCompanies} />
+      {searchTerm !== "" && <p>{companies.length} result(s) for "{searchTerm}"</p>}
       <ul>
         {companyCards}
       </ul>

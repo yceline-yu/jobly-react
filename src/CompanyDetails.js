@@ -7,6 +7,7 @@ import "./CompanyDetails.css";
 /** CompanyDetails
  * 
  * Params:
+ *  { handle }: uses url parameter /companies/:handle
  * 
  * Props:
  * -none
@@ -17,30 +18,34 @@ import "./CompanyDetails.css";
  * { Routes, PrivateRoutes } -> CompanyDetails -> JobCard
  */
 function CompanyDetails() {
-  const [company, setCompany] = useState({});
+  const [company, setCompany] = useState(null);
   const { handle } = useParams();
 
   useEffect(function getSingleCompanyInfoOnMount() {
     async function getSingleCompanyInfo() {
       let response = await JoblyApi.getCompany(handle);
-      console.log(response)
-      setCompany(response)
+      console.log(response);
+      setCompany(response);
     };
     getSingleCompanyInfo();
   }, [handle]);
 
   console.log("company", company);
-//TODO: {} !== {} <--never, use null, line#37 can use &&, consider a get out quick return if statement
+
+  if (company === null) {
+    return (
+      <div>Loading...</div>
+    );
+  }
+
   return (
-    company !== {}
-      ? <div className="CompanyDetails">
-          {company.logoUrl ? <img src={company.logoUrl} alt={company.name} /> : null}
+       <div className="CompanyDetails">
+          {company.logoUrl && <img src={company.logoUrl} alt={company.name} />}
           <p><b>{company.name}</b></p>
           <p>{company.description}</p>
           <h2>Jobs</h2>
-          {company.jobs?.map(job => <JobCard type="companyJob" key={job.id} job={job} />)}
+          {company.jobs?.map(job => <JobCard showCompanyName={false} key={job.id} job={job} />)}
         </div>
-      : <div>"Loading..."</div>
   );
 }
 

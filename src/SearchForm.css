@@ -1,8 +1,12 @@
 .SearchForm{
-margin-top: 2%;
+    margin-top: 2%;
 }
 
 .SearchForm-button {
     border: none;
     margin-left: 1px;
+}
+
+.form-row {
+    justify-content: center;
 }

@@ -41,7 +41,31 @@ class JoblyApi {
     return res.company;
   }
 
-  // obviously, you'll add a lot here ...
+  /** Retrieve list of companies - if search term provided,
+   * retrieve filtered list of companies.
+   */
+  static async getCompanies (term) {
+    let response;
+    if (term === ""){
+      response = await this.request("companies");
+    } else {
+      response = await this.request("companies", { name: term });
+    }
+    return response;
+  }
+
+  /** Retrieve list of jobs - if search term provided,
+   * retrieve filtered list of jobs.
+   */
+  static async getJobs (term) {
+    let response;
+    if (term === ""){
+      response = await this.request("jobs");
+    } else {
+      response = await this.request("jobs", { title: term });
+    }
+    return response;
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)
