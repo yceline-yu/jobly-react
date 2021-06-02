@@ -11,10 +11,10 @@ import JobCard from "./JobCard";
  *  JobList -> JobCardList -> JobCard
  */
 function JobCardList({ jobs }) {
-  
+
   let jobCards = jobs.map(job =>
     <JobCard type="allJobs" key={job.id} job={job} />);
-
+//className
   return (
     <div>{jobCards}</div>
   );
