@@ -6,6 +6,8 @@ import "./CompanyDetails.css";
 
 /** CompanyDetails
  * 
+ * Params:
+ * 
  * Props:
  * -none
  * 
@@ -28,7 +30,7 @@ function CompanyDetails() {
   }, [handle]);
 
   console.log("company", company);
-
+//TODO: {} !== {} <--never, use null, line#37 can use &&, consider a get out quick return if statement
   return (
     company !== {}
       ? <div className="CompanyDetails">

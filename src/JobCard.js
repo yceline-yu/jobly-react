@@ -13,7 +13,7 @@ import "./JobCard.css";
 function JobCard({ job, type }) {
   const { equity, id, salary, title, companyName } = job;
 
-
+//consider boolean showCompanyName = true/false
   return (
     <Card className="JobCard">
       <Card.Body>

@@ -28,6 +28,8 @@ function CompanyList() {
 
   console.log("companies", companies)
 
+  //get methods, use one useEffect to search and filter, [term] state dependency here, UI choices also {name/number}, check out "" if it works
+  //change the API methods so it is more abstracted i.e getAllCOmpanies, getAllJObs, filterCOmpany, filterJObs
   async function searchCompanies(term) {
     let response = await JoblyApi.request("companies", { name: term });
     setCompanies(response.companies);
@@ -36,6 +38,7 @@ function CompanyList() {
   let companyCards = companies.map(company =>
     <CompanyCard key={company.handle} company={company} />);
 
+//TODO: Loading Message!
   return (
     <div className="CompanyList">
       <SearchForm searchFor={searchCompanies} />
