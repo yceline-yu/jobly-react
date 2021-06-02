@@ -7,3 +7,9 @@
     border: none;
     box-shadow: 0 1px 3px rgb(151, 150, 150);
 }
+
+.JobCard .card-body{
+    flex: 1 1 auto;
+    justify-content: left;
+    text-align: left;
+}

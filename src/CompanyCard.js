@@ -12,18 +12,20 @@ import "./CompanyCard.css";
  * 
  * CompanyList -> CompanyCard
  */
-function CompanyCard({ company }){
+function CompanyCard({ company }) {
   const { handle, description, logoUrl, name } = company;
 
   return (
-    <Link className="CompanyCard" exact to={`/companies/${handle}`}><Card>
-      <Card.Body>
-        <img src={logoUrl} alt={name}/>
-        <p><b>{name}</b></p>
-        <p>{description}</p>
-        </Card.Body></Card>
-        </Link>
-  )
+    <Link className="CompanyCard" exact to={`/companies/${handle}`}>
+      <Card>
+        <Card.Body>
+          {logoUrl ? <img src={logoUrl} alt={name} /> : null}
+          <p><b>{name}</b></p>
+          <p>{description}</p>
+        </Card.Body>
+      </Card>
+    </Link>
+  );
 }
 
 export default CompanyCard;
