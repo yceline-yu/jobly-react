@@ -9,7 +9,7 @@ import "./SearchForm.css";
  * State:
  * - formData
  * 
- * { CompanyList, JobList }SearchForm
+ * { CompanyList, JobList } -> SearchForm
  */
 function SearchForm({ searchFor }){
   let initialState = {term:""};

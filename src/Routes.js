@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Homepage from "./Homepage";
 import CompanyDetails from "./CompanyDetails";
 import CompanyList from "./CompanyList";
@@ -33,7 +33,7 @@ function Routes({login, signup, logout, currentUser}){
   return (
     <Switch> 
       <Route exact path="/">
-        <Homepage/>
+        <Homepage currentUser={currentUser}/>
       </Route>
       <Route exact path="/companies/:handle">
         <CompanyDetails/>
@@ -56,6 +56,7 @@ function Routes({login, signup, logout, currentUser}){
       <Route exact path="/logout">
         <Logout logout={logout}/>
       </Route>
+      <Redirect to="/"/>
     </Switch>
   )
 }

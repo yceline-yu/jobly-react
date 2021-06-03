@@ -15,6 +15,7 @@ import "./Navigation.css";
 function Navigation({ currentUser }) {
 
   console.log("navigation curren user", currentUser)
+  // if (currentUser){let username = currentUser.username;}
 
   function getNavLinks(currentUser) {
     if (currentUser === null || currentUser === undefined) {
@@ -65,7 +66,7 @@ function Navigation({ currentUser }) {
           <Nav.Item as="li">
             <Nav.Link>
               <NavLink exact to="/logout">
-                Log Out
+                Log Out {currentUser.username}
               </NavLink>
             </Nav.Link>
           </Nav.Item></>
