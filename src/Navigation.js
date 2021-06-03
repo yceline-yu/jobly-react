@@ -55,7 +55,7 @@ function Navigation({ currentUser }) {
 
           <Nav.Item as="li">
               <NavLink className="nav-link" exact to="/logout">
-                Log Out {currentUser.username}
+                Log Out ({currentUser.username})
               </NavLink>
           </Nav.Item></>
       );
