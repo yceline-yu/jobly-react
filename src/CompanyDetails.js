@@ -24,13 +24,12 @@ function CompanyDetails() {
   useEffect(function getSingleCompanyInfoOnMount() {
     async function getSingleCompanyInfo() {
       let response = await JoblyApi.getCompany(handle);
-      console.log(response);
       setCompany(response);
     };
     getSingleCompanyInfo();
   }, [handle]);
 
-  console.log("company", company);
+  console.log("CompanyDetails company", company);
 
   if (company === null) {
     return (

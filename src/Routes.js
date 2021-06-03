@@ -23,6 +23,7 @@ import SignupForm from "./SignupForm";
  *  }
  */
 function Routes({login, signup, currentUser}){
+  console.log("Routes currUser", currentUser);
  
   return (
    <Switch>

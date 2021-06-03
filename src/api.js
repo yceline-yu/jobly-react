@@ -72,7 +72,6 @@ class JoblyApi {
   */
   static async authenticate({username, password}){
     let response = await this.request("auth/token", {username, password}, "post");
-    console.log("authenticate res", response.token);
     return response.token;
   }
 /** Register
@@ -86,8 +85,6 @@ class JoblyApi {
   }
 
   static async getUser(username){
-    console.log("API username",username)
-    console.log("GETUSER TOKEN", this.token)
     let response = await this.request(`users/${username}`);
     return response.user;
   }

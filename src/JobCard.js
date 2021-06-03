@@ -11,7 +11,7 @@ import "./JobCard.css";
  * 
  */
 function JobCard({ job, showCompanyName}) {
-  const { equity, id, salary, title, companyName } = job;
+  const { equity, salary, title, companyName } = job;
 
   return (
     <Card className="JobCard">

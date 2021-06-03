@@ -16,7 +16,7 @@ function CompanyCard({ company }) {
   const { handle, description, logoUrl, name } = company;
 
   return (
-    <Link className="CompanyCard" exact to={`/companies/${handle}`}>
+    <Link className="CompanyCard" to={`/companies/${handle}`}>
       <Card>
         <Card.Body>
           {logoUrl ? <img src={logoUrl} alt={name} /> : null}

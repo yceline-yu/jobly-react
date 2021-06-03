@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 import { useEffect, useState } from 'react';
-import { BrowserRouter, useHistory } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
 import Routes from "./Routes";
 import PrivateRoutes from "./PrivateRoutes"
@@ -20,29 +20,32 @@ import jwt_decode from "jwt-decode";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem("item"))
-  const history = useHistory();
-  console.log(`history is ===> `, history);
-  console.log(`isLoggedIn is ===> `, isLoggedIn);
- 
-  
-  console.log("App curr user", currentUser);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  console.log(`App Start isLoggedIn + currentU + isLoadingUser `, isLoggedIn, currentUser, isLoadingUser);
 
   
   
   useEffect(function changeUserFromToken(){
-    setToken(localStorage.getItem("item"));
-    JoblyApi.token = token;
-    if(JoblyApi.token) {
+    let localToken = localStorage.getItem("item");
+    console.log("App changeUserFromToken localT", localToken);
+    if(localToken) {
       setIsLoggedIn(true);
+      JoblyApi.token = localToken;
     }
-    //todo try/catch here to handle error if token invalid
     async function userAPICall(){
         try {
+          console.log("App userAPICall joblyapi token", JoblyApi.token)
           let userPayload = jwt_decode(JoblyApi.token);
+          setIsLoadingUser(true);
           let response = await JoblyApi.getUser(userPayload.username);
           setCurrentUser(response);
+          //re-render here
+          setIsLoadingUser(false);
         } catch (err) {
+          console.log("App userAPICall err", err);
+          setIsLoadingUser(false);
+          setIsLoggedIn(false);
           localStorage.clear();
            
         } 
@@ -50,26 +53,21 @@ function App() {
     if (isLoggedIn) {
       userAPICall();
     }
-  }, [isLoggedIn, token])
+  }, [isLoggedIn])
 
   /** Gets auth token from backend on login, sets it on JoblyApi.token,
    * and in localstorage */
   async function login(formData) {
       let tokenRes = await JoblyApi.authenticate(formData);
-      JoblyApi.token = tokenRes;
       setIsLoggedIn(true);
       localStorage.setItem("item", tokenRes);
-      setToken(localStorage.getItem("item"));
-      console.log("TOKEN LOCAL SET")
   }
 
   /** Gets auth token from backend on login, sets it on JoblyApi.token,
    * and in localstorage */
   async function signup(formData) {
     let tokenRes = await JoblyApi.register(formData);
-    JoblyApi.token = tokenRes;
     localStorage.setItem("item", tokenRes);
-    setToken(localStorage.getItem("item"));
     setIsLoggedIn(true);
   }
 
@@ -80,8 +78,8 @@ function App() {
     setIsLoggedIn(false);
   }
 
-  console.log(`token & curr user before return`, token, currentUser)
-  if (token && currentUser === null) {
+  console.log("App pre-return localStorage token + isLoadingUser", localStorage.getItem("item"), isLoadingUser)
+  if (localStorage.getItem("item") && isLoadingUser) {
     return (
       <h1>loading...</h1>
     )

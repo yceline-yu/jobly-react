@@ -22,8 +22,8 @@ function Homepage({ currentUser }) {
           </Row>  
         <Row>
           <Col>          
-          <Link className="Homepage-button btn btn-primary" exact to="/login">Log In</Link>
-          <Link className="Homepage-button btn btn-primary" exact to="/signup">Sign Up</Link>
+          <Link className="Homepage-button btn btn-primary" to="/login">Log In</Link>
+          <Link className="Homepage-button btn btn-primary" to="/signup">Sign Up</Link>
           </Col>
 
         </Row>

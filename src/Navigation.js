@@ -14,61 +14,49 @@ import "./Navigation.css";
  */
 function Navigation({ currentUser }) {
 
-  console.log("navigation curren user", currentUser)
+  console.log("Navigation currentUser", currentUser)
   // if (currentUser){let username = currentUser.username;}
 
   function getNavLinks(currentUser) {
     if (currentUser === null || currentUser === undefined) {
       return (<>
         <Nav.Item as="li">
-          <Nav.Link>
-            <NavLink exact to="/login">
+            <NavLink className="nav-link" exact to="/login">
               Login
             </NavLink>
-          </Nav.Link>
         </Nav.Item>
 
         <Nav.Item as="li">
-          <Nav.Link>
-            <NavLink exact to="/signup">
+            <NavLink className="nav-link" exact to="/signup">
               Sign Up
             </NavLink>
-          </Nav.Link>
         </Nav.Item></>
       );
     } else {
       return (
         <>
           <Nav.Item as="li">
-            <Nav.Link>
-              <NavLink exact to="/companies">
+              <NavLink className="nav-link" exact to="/companies">
                 Companies
               </NavLink>
-            </Nav.Link>
           </Nav.Item>
 
           <Nav.Item as="li">
-            <Nav.Link>
-              <NavLink exact to="/jobs">
+               <NavLink className="nav-link" exact to="/jobs">
                 Jobs
               </NavLink>
-            </Nav.Link>
           </Nav.Item>
 
           <Nav.Item as="li">
-            <Nav.Link>
-              <NavLink exact to="/profile">
+              <NavLink className="nav-link" exact to="/profile">
                 Profile
               </NavLink>
-            </Nav.Link>
           </Nav.Item>
 
           <Nav.Item as="li">
-            <Nav.Link>
-              <NavLink exact to="/logout">
+              <NavLink className="nav-link" exact to="/logout">
                 Log Out {currentUser.username}
               </NavLink>
-            </Nav.Link>
           </Nav.Item></>
       );
     }
@@ -76,11 +64,9 @@ function Navigation({ currentUser }) {
   return (
     <Nav as="ul" variant="tabs" className="Navigation Nav justify-content-center">
       <Nav.Item as="li">
-        <Nav.Link>
-          <NavLink exact to="/">
+          <NavLink className="nav-link" exact to="/">
             Jobly
           </NavLink>
-        </Nav.Link>
       </Nav.Item>
       {getNavLinks(currentUser)}
     </Nav>
