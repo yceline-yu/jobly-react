@@ -9,6 +9,7 @@ import "./LoginForm.css";
 function LoginForm({ login }) {
   let initialState = {username:"", password:""};
   const [formData, setFormData] = useState(initialState);
+  const [formError, setFormError] = useState(null)
 
   const history = useHistory();
 
@@ -22,9 +23,13 @@ function LoginForm({ login }) {
 
   async function handleSubmit(evt){
     evt.preventDefault();
-    await login(formData);
-    setFormData(initialState);
-    history.push("/");
+    try {
+      await login(formData);
+      setFormData(initialState);
+      history.push("/");
+    } catch (err) {
+      setFormError(err)
+    }
   }
 
   return (
@@ -32,6 +37,7 @@ function LoginForm({ login }) {
       <h3>Log In</h3>
       <Card>
         <Card.Body>
+          {formError && <p>{formError}</p>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="loginFormUsername">
               <Form.Label>Username</Form.Label>

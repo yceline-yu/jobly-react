@@ -28,7 +28,7 @@ import Logout from "./Logout";
  *    ProfileForm 
  *  }
  */
-function Routes({login, signup, currentUser}){
+function Routes({login, signup, logout, currentUser}){
  
   return (
     <Switch> 
@@ -53,8 +53,8 @@ function Routes({login, signup, currentUser}){
       <Route exact path="/profile">
         <ProfileForm/>
       </Route>
-      <Route exact path="/profile">
-        <Logout/>
+      <Route exact path="/logout">
+        <Logout logout={logout}/>
       </Route>
     </Switch>
   )

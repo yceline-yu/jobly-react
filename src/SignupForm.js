@@ -8,6 +8,7 @@ import "./SignupForm.css";
 function SignupForm({ signup }){
   let initialState = {username:"", password:""};
   const [formData, setFormData] = useState(initialState);
+  const [formError, setFormError] = useState(null)
 
   const history = useHistory();
 
@@ -19,11 +20,15 @@ function SignupForm({ signup }){
     }));
   };
 
-  function handleSubmit(evt){
+  async function handleSubmit(evt){
     evt.preventDefault();
-    signup(formData);
-    setFormData(initialState);
-    history.push("/");
+    try {
+      await signup(formData);
+      setFormData(initialState);
+      history.push("/");
+    } catch (err) {
+      setFormError(err)
+    }
   }
 
   return (
@@ -31,6 +36,7 @@ function SignupForm({ signup }){
       <h3>Sign Up</h3>
       <Card>
         <Card.Body>
+          {formError && <p>{formError}</p>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="signupFormUsername">
               <Form.Label>Username</Form.Label>
