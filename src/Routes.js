@@ -6,6 +6,7 @@ import JobList from "./JobList";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import ProfileForm from "./ProfileForm";
+import Logout from "./Logout";
 
 
 /** Routes
@@ -36,22 +37,25 @@ function Routes({login, signup, currentUser}){
       </Route>
       <Route exact path="/companies/:handle">
         <CompanyDetails/>
-        </Route>
+      </Route>
       <Route exact path="/companies">
         <CompanyList/>
-        </Route>
+      </Route>
       <Route exact path="/jobs">
         <JobList/>
-        </Route>
+      </Route>
       <Route exact path="/login">
-        <LoginForm/>
-        </Route>
+        <LoginForm login={login}/>
+      </Route>
       <Route exact path="/signup">
-        <SignupForm/>
-        </Route>
+        <SignupForm signup={signup}/>
+      </Route>
       <Route exact path="/profile">
         <ProfileForm/>
-        </Route>
+      </Route>
+      <Route exact path="/profile">
+        <Logout/>
+      </Route>
     </Switch>
   )
 }

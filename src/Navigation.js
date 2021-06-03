@@ -14,41 +14,75 @@ import "./Navigation.css";
  */
 function Navigation({ currentUser }) {
 
+  console.log("navigation curren user", currentUser)
+
   function getNavLinks(currentUser) {
-    if (currentUser === null) {
+    if (currentUser === null || currentUser === undefined) {
       return (<>
-        <Nav.Item as="li"><Nav.Link exact to="/login">
-          Login
-        </Nav.Link></Nav.Item>
-        <Nav.Item as="li"><Nav.Link exact to="/signup">
-          Sign Up
-        </Nav.Link></Nav.Item></>
+        <Nav.Item as="li">
+          <Nav.Link>
+            <NavLink exact to="/login">
+              Login
+            </NavLink>
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item as="li">
+          <Nav.Link>
+            <NavLink exact to="/signup">
+              Sign Up
+            </NavLink>
+          </Nav.Link>
+        </Nav.Item></>
       );
     } else {
       return (
         <>
-        <Nav.Item as="li"><Nav.Link><NavLink exact to="/companies">
-          Companies</NavLink></Nav.Link>
-        </Nav.Item>
-        <Nav.Item as="li"><Nav.Link><NavLink exact to="/jobs">
-          Jobs</NavLink></Nav.Link>
+          <Nav.Item as="li">
+            <Nav.Link>
+              <NavLink exact to="/companies">
+                Companies
+              </NavLink>
+            </Nav.Link>
           </Nav.Item>
-        <Nav.Item as="li"><Nav.Link><NavLink exact to="/profile">
-          Profile</NavLink></Nav.Link>
+
+          <Nav.Item as="li">
+            <Nav.Link>
+              <NavLink exact to="/jobs">
+                Jobs
+              </NavLink>
+            </Nav.Link>
           </Nav.Item>
-        <Nav.Item as="li"><Nav.Link><NavLink exact to="/logout">
-          Log Out</NavLink>
-        </Nav.Link></Nav.Item></>
+
+          <Nav.Item as="li">
+            <Nav.Link>
+              <NavLink exact to="/profile">
+                Profile
+              </NavLink>
+            </Nav.Link>
+          </Nav.Item>
+
+          <Nav.Item as="li">
+            <Nav.Link>
+              <NavLink exact to="/logout">
+                Log Out
+              </NavLink>
+            </Nav.Link>
+          </Nav.Item></>
       );
     }
   }
   return (
     <Nav as="ul" variant="tabs" className="Navigation Nav justify-content-center">
-      <Nav.Item as="li"><Nav.Link><NavLink exact to="/">
-          Jobly</NavLink></Nav.Link>
-        </Nav.Item>
-        {getNavLinks(currentUser)}
-        </Nav>
+      <Nav.Item as="li">
+        <Nav.Link>
+          <NavLink exact to="/">
+            Jobly
+          </NavLink>
+        </Nav.Link>
+      </Nav.Item>
+      {getNavLinks(currentUser)}
+    </Nav>
   );
 }
 
