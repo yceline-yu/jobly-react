@@ -10,14 +10,16 @@ import "./JobCard.css";
  * { JobCardList, CompanyDetail } -> JobCard
  * 
  */
-function JobCard({ job, showCompanyName}) {
+
+function JobCard({ job, showCompanyName }) {
+
   const { equity, salary, title, companyName } = job;
 
   return (
     <Card className="JobCard">
       <Card.Body>
         <p><b>{title}</b></p>
-        {showCompanyName ? <p>{companyName}</p> : null  }
+        {showCompanyName ? <p>{companyName}</p> : null}
         {salary ? <p>Salary: {salary}</p> : null}
         <p>Equity: {equity}</p>
       </Card.Body>

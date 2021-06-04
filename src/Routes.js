@@ -5,40 +5,44 @@ import SignupForm from "./SignupForm";
 
 /** Routes
  * 
- * props: 
+ * Props: 
  *  - login ()
  *  - signup ()
- *  - currentUser {username: ..., firstName: ...,}
+ *  - currentUser {username, firstName, lastName, email,...}
  * 
- * state: none
+ * State
+ *  - none
  * 
  * App -> Routes -> {
  *    Homepage, 
- *    CompanyDetails, 
- *    CompanyList,
- *    JobList,
  *    LoginForm,
  *    SignupForm,
- *    ProfileForm 
  *  }
  */
-function Routes({login, signup, currentUser}){
-  console.log("Routes currUser", currentUser);
- 
+
+function Routes({ login, signup, currentUser }) {
+
+  console.log("Routes currentUser", currentUser);
+
   return (
-   <Switch>
+    <Switch>
+
       <Route exact path="/">
-        <Homepage currentUser={currentUser}/>
+        <Homepage currentUser={currentUser} />
       </Route>
+
       <Route exact path="/login">
-        <LoginForm login={login}/>
+        <LoginForm login={login} />
       </Route>
+
       <Route exact path="/signup">
-        <SignupForm signup={signup}/>
+        <SignupForm signup={signup} />
       </Route>
-      <Redirect to="/"/>
-      </Switch>
-  )
+
+      <Redirect to="/login" />
+
+    </Switch>
+  );
 }
 
 export default Routes;

@@ -11,7 +11,9 @@ import "./SearchForm.css";
  * 
  * { CompanyList, JobList } -> SearchForm
  */
+
 function SearchForm({ searchFor }){
+  
   let initialState = {term:""};
   const [formData, setFormData] = useState(initialState);
 
@@ -27,7 +29,7 @@ function SearchForm({ searchFor }){
     evt.preventDefault();
     searchFor(formData.term);
     setFormData(initialState);
-  }
+  };
 
   return (
     <form className="SearchForm form-row" onSubmit={handleSubmit}>
@@ -38,7 +40,7 @@ function SearchForm({ searchFor }){
             onChange={handleChange}/>
       <button className="SearchForm-button btn-sm btn-primary mb-2">Search</button>
     </form>
-  )
+  );
 }
 
 export default SearchForm;

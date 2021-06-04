@@ -4,32 +4,47 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import "./Homepage.css";
 
+/** Homepage
+ * 
+ * Props:
+ *  - currentUser {username, firstname, lastname, email,...}
+ * 
+ * State:
+ *  - none
+ * 
+ */
+
 function Homepage({ currentUser }) {
 
   if (currentUser) {
     return (
-      <Container className="Homepage col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <div className="Homepage">
+      <Container className="Homepage-container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
         <Row>
           <Col><h1>Welcome back to Jobly, {currentUser.firstName}!</h1></Col>
         </Row>
       </Container>
-    )
+      </div>
+    );
   } else {
     return (
-      <Container className="Homepage col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <div className="Homepage">
+      <Container className="Homepage-container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
         <Row>
           <Col><h1>Welcome to Jobly!</h1></Col>
-          </Row>  
+        </Row>
         <Row>
-          <Col>          
-          <Link className="Homepage-button btn btn-primary" to="/login">Log In</Link>
-          <Link className="Homepage-button btn btn-primary" to="/signup">Sign Up</Link>
+          <Col>
+            <Link className="Homepage-button btn btn-primary" 
+                  to="/login">Log In</Link>
+            <Link className="Homepage-button btn btn-primary" 
+                  to="/signup">Sign Up</Link>
           </Col>
-
         </Row>
       </Container>
-    )
+      </div>
+    );
   }
 }
 
-  export default Homepage;
+export default Homepage;

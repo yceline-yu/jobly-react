@@ -6,15 +6,17 @@ import JobList from "./JobList";
 import ProfileForm from "./ProfileForm";
 import Logout from "./Logout";
 
-
 /** Private Routes
  * 
- * props: 
- *  - currentUser {username: ..., firstName: ...,}
+ * Props: 
+ *  - currentUser {username, firstName, lastName, email,...}
+ *  - logout()
+ *  - editProfile()
  * 
- * state: none
+ * State:
+ *  - none
  * 
- * App -> Routes -> {
+ * App -> PrivateRoutes -> {
  *    Homepage, 
  *    CompanyDetails, 
  *    CompanyList,
@@ -23,32 +25,42 @@ import Logout from "./Logout";
  *    ProfileForm 
  *  }
  */
-function PrivateRoutes({logout, currentUser, editProfile}){
-  console.log("PrivateRoutes currentUser!", currentUser);
- 
+
+function PrivateRoutes({ logout, currentUser, editProfile }) {
+
+  console.log("PrivateRoutes currentUser", currentUser);
+
   return (
     <Switch>
+
       <Route exact path="/">
-        <Homepage currentUser={currentUser}/>
+        <Homepage currentUser={currentUser} />
       </Route>
+
       <Route exact path="/companies/:handle">
-        <CompanyDetails/>
+        <CompanyDetails />
       </Route>
+
       <Route exact path="/companies">
-        <CompanyList/>
+        <CompanyList />
       </Route>
+
       <Route exact path="/jobs">
-        <JobList/>
+        <JobList />
       </Route>
+
       <Route exact path="/profile">
-        <ProfileForm currentUser={currentUser} editProfile={editProfile}/>
+        <ProfileForm currentUser={currentUser} editProfile={editProfile} />
       </Route>
+
       <Route exact path="/logout">
-        <Logout logout={logout}/>
+        <Logout logout={logout} />
       </Route>
-      <Redirect to="/"/>
-      </Switch>
-  )
+
+      <Redirect to="/" />
+
+    </Switch>
+  );
 }
 
 export default PrivateRoutes;

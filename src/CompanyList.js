@@ -13,19 +13,22 @@ import "./CompanyList.css";
  * - companies [{company}, {company},...]
  * - searchTerm: string submitted from search bar
  * 
- * {PrivateRoutes, Routes} -> CompanyList -> { SearchForm, CompanyCard }
+ * PrivateRoutes -> CompanyList -> { SearchForm, CompanyCard }
  * 
  */
+
 function CompanyList() {
   const [companies, setCompanies] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(function getCompaniesOnMount() {
-    async function getCompaniesFromAPI() {
+  useEffect(function getCompaniesFromApiOnMount() {
+
+    async function getCompaniesFromApi() {
       let response = await JoblyApi.getCompanies(searchTerm);
       setCompanies(response.companies);
     };
-    getCompaniesFromAPI();
+
+    getCompaniesFromApi();
   }, [searchTerm]);
 
   async function searchCompanies(term) {
@@ -34,7 +37,7 @@ function CompanyList() {
 
   if (companies === null) {
     return (
-      <div>Loading...</div>
+      <div className="CompanyList"><h1>Loading...</h1></div>
     );
   }
 

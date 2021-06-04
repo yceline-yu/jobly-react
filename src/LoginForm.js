@@ -5,11 +5,23 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./LoginForm.css";
 
+/** LoginForm
+ * 
+ * Props:
+ *  - login()
+ * 
+ * State:
+ *  -formData
+ *  -formError
+ *  
+ *  Routes -> LoginForm
+ */
 
 function LoginForm({ login }) {
+
   let initialState = {username:"", password:""};
   const [formData, setFormData] = useState(initialState);
-  const [formError, setFormError] = useState(null)
+  const [formError, setFormError] = useState(null);
 
   const history = useHistory();
 
@@ -38,6 +50,7 @@ function LoginForm({ login }) {
       <Card>
         <Card.Body>
           {formError && <p>{formError}</p>}
+          
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="loginFormUsername">
               <Form.Label>Username</Form.Label>
@@ -47,6 +60,7 @@ function LoginForm({ login }) {
                             value={formData.username}
                             onChange={handleChange}/>
             </Form.Group>
+
             <Form.Group controlId="loginFormPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" 
@@ -55,14 +69,16 @@ function LoginForm({ login }) {
                             value={formData.password}
                             onChange={handleChange}/>
             </Form.Group>
+
             <Button className="LoginForm-button" variant="primary" type="submit">
               Log In
             </Button>
+
           </Form>
         </Card.Body>
       </Card>
     </div>
-  )
+  );
 }
 
 export default LoginForm;

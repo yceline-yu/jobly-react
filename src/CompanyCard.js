@@ -12,7 +12,9 @@ import "./CompanyCard.css";
  * 
  * CompanyList -> CompanyCard
  */
+
 function CompanyCard({ company }) {
+
   const { handle, description, logoUrl, name } = company;
 
   return (
