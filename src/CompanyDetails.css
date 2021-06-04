@@ -9,3 +9,9 @@
     align-items: center;
     margin-left: 26%;
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .CompanyDetails-jobs {
+        margin-left: auto;
+        }
+    }
