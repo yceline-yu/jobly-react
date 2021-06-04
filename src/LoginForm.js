@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
 import "./LoginForm.css";
 
 /** LoginForm
@@ -49,7 +50,7 @@ function LoginForm({ login }) {
       <h3>Log In</h3>
       <Card>
         <Card.Body>
-          {formError && <p>{formError}</p>}
+          {formError && <Alert variant="danger">{formError}</Alert>}
           
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="loginFormUsername">

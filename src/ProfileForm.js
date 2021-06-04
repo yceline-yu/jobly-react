@@ -3,6 +3,7 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
 import "./ProfileForm.css";
 
 /** ProfileForm
@@ -60,7 +61,7 @@ function ProfileForm({ editProfile, currentUser }) {
       <h3>Edit Profile</h3>
       <Card>
         <Card.Body>
-          {formError && <p>{formError}</p>}
+          {formError && <Alert variant="danger">{formError}</Alert>}
           <Form onSubmit={handleSubmit}>
 
             <Form.Group controlId="ProfileFormUsername">
