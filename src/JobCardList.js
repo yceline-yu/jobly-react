@@ -1,4 +1,5 @@
 import JobCard from "./JobCard";
+import "./JobCardList.css";
 
 /** JobCardList
  * 

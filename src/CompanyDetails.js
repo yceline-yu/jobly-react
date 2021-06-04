@@ -46,7 +46,9 @@ function CompanyDetails() {
       <p><b>{company.name}</b></p>
       <p>{company.description}</p>
       <h2>Jobs</h2>
+      <div className="CompanyDetails-jobs">
       {company.jobs?.map(job => <JobCard showCompanyName={false} key={job.id} job={job} />)}
+      </div>
     </div>
   );
 }
