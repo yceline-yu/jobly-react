@@ -14,3 +14,11 @@
     justify-content: left;
     text-align: left;
 }
+
+
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+.JobCard{
+    width: auto;
+    }
+}

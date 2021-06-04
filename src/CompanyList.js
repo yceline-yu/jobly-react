@@ -48,7 +48,7 @@ function CompanyList() {
     <div className="CompanyList">
       <SearchForm searchFor={searchCompanies} />
       {searchTerm !== "" && <p>{companies.length} result(s) for "{searchTerm}"</p>}
-      <ul>
+      <ul className="CompanyList">
         {companyCards}
       </ul>
     </div>
