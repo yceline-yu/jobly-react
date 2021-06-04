@@ -27,7 +27,8 @@ function SearchForm({ searchFor }){
 
   function handleSubmit(evt){
     evt.preventDefault();
-    searchFor(formData.term);
+    let trimmedTerm = formData.term.trim();
+    searchFor(trimmedTerm);
     setFormData(initialState);
   };
 

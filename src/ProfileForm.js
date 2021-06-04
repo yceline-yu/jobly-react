@@ -25,7 +25,7 @@ function ProfileForm({ editProfile, currentUser }) {
   };
 
   const [formData, setFormData] = useState(initialState);
-  const [formError, setFormError] = useState(null)
+  const [formError, setFormError] = useState(null);
 
   const history = useHistory();
 

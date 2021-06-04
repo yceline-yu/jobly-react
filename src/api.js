@@ -42,8 +42,8 @@ class JoblyApi {
   }
 
   /** Retrieve list of companies - if search term provided,
-   * retrieve filtered list of companies.
-   */
+   * retrieve filtered list of companies. */
+
   static async getCompanies(term) {
     let response;
     if (term === "") {
@@ -55,8 +55,8 @@ class JoblyApi {
   }
 
   /** Retrieve list of jobs - if search term provided,
-   * retrieve filtered list of jobs.
-   */
+   * retrieve filtered list of jobs. */
+  
   static async getJobs(term) {
     let response;
     if (term === "") {
@@ -67,16 +67,15 @@ class JoblyApi {
     return response;
   }
 
-  /** Authenticate 
-   * return token
-  */
+  /** Authenticate - post request, return token*/
+
   static async authenticate({ username, password }) {
     let response = await this.request("auth/token", { username, password }, "post");
     return response.token;
   }
-  /** Register
-   * return token
-   */
+
+  /** Register - post request, return token */
+
   static async register({ username, password, firstName, lastName, email }) {
     let response = await this.request("auth/register",
       { username, password, firstName, lastName, email },
@@ -84,20 +83,21 @@ class JoblyApi {
     return response.token;
   }
 
-  /** get user - returns user object */
+  /** getUser - get request, returns user object */
+
   static async getUser(username) {
     let response = await this.request(`users/${username}`);
     return response.user;
   }
   
-  /** patch/edit user - returns user object */
+  /** editUser - patch request, returns user object */
+
   static async editUser(user) {
     const { firstName, lastName, password, email, username } = user;
     let response = await this.request(`users/${username}`,
       { password, firstName, lastName, email },
       "patch");
     return response.user;
-
   }
 }
 

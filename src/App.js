@@ -1,5 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
-import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
@@ -7,12 +5,16 @@ import Routes from "./Routes";
 import PrivateRoutes from "./PrivateRoutes"
 import JoblyApi from "./api";
 import jwt_decode from "jwt-decode";
-
+import "bootstrap/dist/css/bootstrap.css";
+import './App.css';
 
 /** App
  * 
+ * Props:
+ *  - none
+ * 
  * State:
- *  - currentUser {username, isAdmin, firstName, lastName,...}
+ *  - currentUser {username, firstName, lastName, email,...}
  *  - hasLocalToken (boolean)
  *  - isLoadingUser (boolean)
  * 
@@ -24,12 +26,12 @@ function App() {
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  console.log(`App Start hasLocalToken + currentU + isLoadingUser `, hasLocalToken, currentUser, isLoadingUser);
+  console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
 
   /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
-    console.log("App changeUserFromToken localT", localToken);
+    console.log("App changeUserFromToken localToken", localToken);
 
     if (localToken) {
       setHasLocalToken(true);
@@ -38,21 +40,28 @@ function App() {
 
     async function userAPICall() {
       try {
-        console.log("App userAPICall joblyapi token", JoblyApi.token);
-        let userPayload = jwt_decode(JoblyApi.token);
+
+        console.log("App userAPICall JoblyApi.token", JoblyApi.token);
+
+        let { username } = jwt_decode(JoblyApi.token);
         setIsLoadingUser(true);
-        let response = await JoblyApi.getUser(userPayload.username);
+        let response = await JoblyApi.getUser(username);
         setCurrentUser(response);
         //re-render here
         setIsLoadingUser(false);
+
       } catch (err) {
+
         console.log("App userAPICall err", err);
+
+        setCurrentUser(null)
         setIsLoadingUser(false);
-        setHasLocalToken(false);
-        localStorage.clear();
+        //consider localStorage keeping
+        // setHasLocalToken(false);
+        // localStorage.clear();
 
       }
-    }
+    };
 
     if (hasLocalToken) {
       userAPICall();
@@ -61,7 +70,8 @@ function App() {
   }, [hasLocalToken]);
 
   /** Gets auth token from backend on login, sets it on
-   * localstorage and updates hasLocalToken */
+   * localStorage and updates hasLocalToken */
+
   async function login(formData) {
 
     let tokenRes = await JoblyApi.authenticate(formData);
@@ -71,7 +81,8 @@ function App() {
   }
 
   /** Gets auth token from backend on login, sets it on 
-   * localstorage & updates hasLocalToken*/
+   * localStorage & updates hasLocalToken */
+
   async function signup(formData) {
 
     let tokenRes = await JoblyApi.register(formData);
@@ -81,18 +92,20 @@ function App() {
   }
 
   /** calls API func to update/edit user profile data, 
-   * sets current user to updated user object
-   */
+   * sets current user to updated user object */
+
   async function editProfile(formData) {
 
     const { username, password, firstName, lastName, email } = formData;
     await JoblyApi.authenticate({ username, password });
+
     let userRes = await JoblyApi.editUser({
       username,
       firstName,
       lastName,
       email
     });
+
     setCurrentUser(userRes);
 
   }
