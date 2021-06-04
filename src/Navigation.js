@@ -15,7 +15,6 @@ import "./Navigation.css";
 function Navigation({ currentUser }) {
 
   console.log("Navigation currentUser", currentUser)
-  // if (currentUser){let username = currentUser.username;}
 
   function getNavLinks(currentUser) {
     if (currentUser === null || currentUser === undefined) {

@@ -20,8 +20,8 @@ class JoblyApi {
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${this.token}` };
     const params = (method === "get")
-        ? data
-        : {};
+      ? data
+      : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
@@ -44,9 +44,9 @@ class JoblyApi {
   /** Retrieve list of companies - if search term provided,
    * retrieve filtered list of companies.
    */
-  static async getCompanies (term) {
+  static async getCompanies(term) {
     let response;
-    if (term === ""){
+    if (term === "") {
       response = await this.request("companies");
     } else {
       response = await this.request("companies", { name: term });
@@ -57,9 +57,9 @@ class JoblyApi {
   /** Retrieve list of jobs - if search term provided,
    * retrieve filtered list of jobs.
    */
-  static async getJobs (term) {
+  static async getJobs(term) {
     let response;
-    if (term === ""){
+    if (term === "") {
       response = await this.request("jobs");
     } else {
       response = await this.request("jobs", { title: term });
@@ -70,23 +70,34 @@ class JoblyApi {
   /** Authenticate 
    * return token
   */
-  static async authenticate({username, password}){
-    let response = await this.request("auth/token", {username, password}, "post");
+  static async authenticate({ username, password }) {
+    let response = await this.request("auth/token", { username, password }, "post");
     return response.token;
   }
-/** Register
- * return token
- */
-  static async register({username, password, firstName, lastName, email}){
-    let response = await this.request("auth/register", 
-                                {username, password, firstName, lastName, email}, 
-                                 "post");
-    return response.token;                            
+  /** Register
+   * return token
+   */
+  static async register({ username, password, firstName, lastName, email }) {
+    let response = await this.request("auth/register",
+      { username, password, firstName, lastName, email },
+      "post");
+    return response.token;
   }
 
-  static async getUser(username){
+  /** get user - returns user object */
+  static async getUser(username) {
     let response = await this.request(`users/${username}`);
     return response.user;
+  }
+  
+  /** patch/edit user - returns user object */
+  static async editUser(user) {
+    const { firstName, lastName, password, email, username } = user;
+    let response = await this.request(`users/${username}`,
+      { password, firstName, lastName, email },
+      "patch");
+    return response.user;
+
   }
 }
 

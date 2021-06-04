@@ -23,7 +23,7 @@ import Logout from "./Logout";
  *    ProfileForm 
  *  }
  */
-function PrivateRoutes({logout, currentUser}){
+function PrivateRoutes({logout, currentUser, editProfile}){
   console.log("PrivateRoutes currentUser!", currentUser);
  
   return (
@@ -41,7 +41,7 @@ function PrivateRoutes({logout, currentUser}){
         <JobList/>
       </Route>
       <Route exact path="/profile">
-        <ProfileForm/>
+        <ProfileForm currentUser={currentUser} editProfile={editProfile}/>
       </Route>
       <Route exact path="/logout">
         <Logout logout={logout}/>

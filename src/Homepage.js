@@ -10,7 +10,7 @@ function Homepage({ currentUser }) {
     return (
       <Container className="Homepage col-md-6 offset-md-3 col-lg-4 offset-lg-4">
         <Row>
-          <Col><h1>Welcome back to Jobly, {currentUser.username}</h1></Col>
+          <Col><h1>Welcome back to Jobly, {currentUser.firstName}!</h1></Col>
         </Row>
       </Container>
     )

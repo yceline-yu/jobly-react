@@ -13,24 +13,24 @@ import jwt_decode from "jwt-decode";
  * 
  * State:
  *  - currentUser {username, isAdmin, firstName, lastName,...}
- *  - isLoggedIn (boolean)
+ *  - hasLocalToken (boolean)
+ *  - isLoadingUser (boolean)
  * 
- * App -> { Navigation, Routes }
+ * App -> { Navigation, Routes, PrivateRoutes }
  */
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  console.log(`App Start isLoggedIn + currentU + isLoadingUser `, isLoggedIn, currentUser, isLoadingUser);
+  console.log(`App Start hasLocalToken + currentU + isLoadingUser `, hasLocalToken, currentUser, isLoadingUser);
 
-  
-  
+  /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken(){
     let localToken = localStorage.getItem("item");
     console.log("App changeUserFromToken localT", localToken);
     if(localToken) {
-      setIsLoggedIn(true);
+      setHasLocalToken(true);
       JoblyApi.token = localToken;
     }
     async function userAPICall(){
@@ -45,37 +45,47 @@ function App() {
         } catch (err) {
           console.log("App userAPICall err", err);
           setIsLoadingUser(false);
-          setIsLoggedIn(false);
+          setHasLocalToken(false);
           localStorage.clear();
            
         } 
     }
-    if (isLoggedIn) {
+    if (hasLocalToken) {
       userAPICall();
     }
-  }, [isLoggedIn])
+  }, [hasLocalToken])
 
-  /** Gets auth token from backend on login, sets it on JoblyApi.token,
-   * and in localstorage */
+  /** Gets auth token from backend on login, sets it on
+   * localstorage and updates hasLocalToken */
   async function login(formData) {
       let tokenRes = await JoblyApi.authenticate(formData);
-      setIsLoggedIn(true);
+      setHasLocalToken(true);
       localStorage.setItem("item", tokenRes);
   }
 
-  /** Gets auth token from backend on login, sets it on JoblyApi.token,
-   * and in localstorage */
+  /** Gets auth token from backend on login, sets it on 
+   * localstorage & updates hasLocalToken*/
   async function signup(formData) {
     let tokenRes = await JoblyApi.register(formData);
     localStorage.setItem("item", tokenRes);
-    setIsLoggedIn(true);
+    setHasLocalToken(true);
+  }
+
+  /** calls API func to update/edit user profile data, 
+   * sets current user to updated user object
+   */
+  async function editProfile(formData) {
+    const {username, password, firstName, lastName, email} = formData
+    await JoblyApi.authenticate({username, password})
+    let userRes = await JoblyApi.editUser({username, firstName, lastName, email});
+    setCurrentUser(userRes)
   }
 
   /** Clears local storage and logs user out */
   async function logout(){
     localStorage.clear();
     setCurrentUser(null);
-    setIsLoggedIn(false);
+    setHasLocalToken(false);
   }
 
   console.log("App pre-return localStorage token + isLoadingUser", localStorage.getItem("item"), isLoadingUser)
@@ -90,7 +100,7 @@ function App() {
         <BrowserRouter>
           <Navigation currentUser={currentUser} />
           {currentUser !== null 
-          ? <PrivateRoutes currentUser={currentUser} logout={logout}/> 
+          ? <PrivateRoutes currentUser={currentUser} logout={logout} editProfile={editProfile}/> 
           : <Routes login={login} signup={signup} currentUser={currentUser} />}
           </BrowserRouter>
       </div>
