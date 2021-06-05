@@ -9,3 +9,9 @@
 .ProfileForm .card {
     background-color: rgb(210, 244, 248);
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px){
+    .ProfileForm {
+        margin: 5%;
+    }
+}
